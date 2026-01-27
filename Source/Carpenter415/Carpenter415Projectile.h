@@ -28,8 +28,20 @@ class ACarpenter415Projectile : public AActor
 	UPROPERTY(EditAnywhere)
 	UMaterial* baseMat;
 
+	UPROPERTY()
+	FLinearColor randColor;
+
+	UPROPERTY(EditAnywhere)
+	UMaterialInterface* projMat;
+
+	UPROPERTY()
+	UMaterialInstanceDynamic* dmiMat;
+
 public:
 	ACarpenter415Projectile();
+
+protected:
+	virtual void BeginPlay();
 
 	/** called when projectile hits something */
 	UFUNCTION()
