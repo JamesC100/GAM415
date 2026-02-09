@@ -9,7 +9,7 @@
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 
-ACarpenter415Projectile::ACarpenter415Projectile() 
+ACarpenter415Projectile::ACarpenter415Projectile()
 {
 	// Use a sphere as a simple collision representation
 	CollisionComp = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComp"));
