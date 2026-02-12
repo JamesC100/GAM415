@@ -45,9 +45,11 @@ void ACarpenter415Projectile::BeginPlay()
 	Super::BeginPlay();
 	randColor = FLinearColor(UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), UKismetMathLibrary::RandomFloatInRange(0.f, 1.f), 1.f);
 
+	// Create Dynamic Material Instance for projectile and set its color parameter
 	dmiMat = UMaterialInstanceDynamic::Create(projMat, this);
 	ballMesh->SetMaterial(0, dmiMat);
 
+	// Set the randomized color to the projectile material
 	dmiMat->SetVectorParameterValue("projColor", randColor);
 }
 
@@ -65,6 +67,7 @@ void ACarpenter415Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherA
 	{
 		if (colorP)
 		{
+			//Checks that the Material and Niagara system are valid before proceeding	
 			UNiagaraComponent* particleComp = UNiagaraFunctionLibrary::SpawnSystemAttached(colorP, HitComp, NAME_None, FVector(-20.f, 0.f, 0.f), FRotator(0.f), EAttachLocation::KeepRelativeOffset, true);
 			particleComp->SetNiagaraVariableLinearColor(FString("RandomColor"), randColor);
 			ballMesh->DestroyComponent();

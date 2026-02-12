@@ -56,9 +56,11 @@ void ACubeDMIMod::OnOverlapBegin(UPrimitiveComponent* Overlappedcomp, AActor* Ot
 		float ranNumY = UKismetMathLibrary::RandomFloatInRange(0.f, 1.f);
 		float ranNumZ = UKismetMathLibrary::RandomFloatInRange(0.f, 1.f);
 
+		// Store random color for the material parameter
 		FLinearColor randColor = FLinearColor(ranNumX, ranNumY, ranNumZ, 1.f);
 			if (dmiMat)
 			{
+				// Apply color and scalar parameters to the material
 				dmiMat->SetVectorParameterValue("Color", randColor);
 				dmiMat->SetScalarParameterValue("Darkness", ranNumX);
 
