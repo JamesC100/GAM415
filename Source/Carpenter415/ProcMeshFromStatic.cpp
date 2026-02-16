@@ -12,7 +12,7 @@ AProcMeshFromStatic::AProcMeshFromStatic()
 	procMesh = CreateDefaultSubobject<UProceduralMeshComponent>("Proc Mesh");
 	baseMesh = CreateDefaultSubobject<UStaticMeshComponent>("Base Mesh");
 
-	RootComponent = procMesh;
+	procMesh->SetupAttachment(GetRootComponent());
 	baseMesh->SetupAttachment(procMesh);
 
 }
@@ -44,6 +44,8 @@ void AProcMeshFromStatic::GetMeshData()
 	if (mesh)
 	{
 		UKismetProceduralMeshLibrary::GetSectionFromStaticMesh(mesh, 0, 0, Vertices, Triangles, Normals, UV0, Tangents);
+		procMesh->UpdateMeshSection(0, Vertices, Normals, UV0, UpVertexColors, Tangents);
+		CreateMesh();
 	}
 }
 
