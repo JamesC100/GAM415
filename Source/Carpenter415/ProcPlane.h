@@ -20,6 +20,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//Creation before the game loads
 	virtual void PostActorCreated() override;
 
 	virtual void PostLoad() override;
@@ -43,5 +44,6 @@ public:
 	void CreateMesh();
 
 private:
+	UPROPERTY(VisibleAnywhere)
 	UProceduralMeshComponent* procMesh;
 };

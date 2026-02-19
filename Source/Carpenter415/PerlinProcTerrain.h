@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "PerlinProcTerrain.generated.h"
 
+// Forward declarations
 class UProceduralMeshComponent;
 class UMaterialInterface;
 
@@ -18,24 +19,29 @@ public:
 	// Sets default values for this actor's properties
 	APerlinProcTerrain();
 
+	// Variables
+	// Clamp the terrain size
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
 	int XSize = 0;
 
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
 	int YSize = 0;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ClampMin = 0))
-	float ZMultiplier = 1.0f;
+	// Z axis height multiplier
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Meta = (ClampMin = 0.0))
+	float ZMultiplier = 1.0;
 
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0))
-	float NoiseScale = 1.0f;
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.0))
+	float NoiseScale = 1.0;
+
+	// Scale of the terrain spacing
+	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
+	float Scale = 0.0;
 
 	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
-	float Scale = 0;
+	float UVScale = 0.0;
 
-	UPROPERTY(EditAnywhere, Meta = (ClampMin = 0.000001))
-	float UVScale = 0;
-
+	// Width and Height of the terrain 
 	UPROPERTY(EditAnywhere)
 	float radius;
 
@@ -46,6 +52,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	// Setting the material for the terrain
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* Mat;
 
@@ -53,11 +60,14 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	// Function to alter the terrain using raytrace impact
 	UFUNCTION()
 	void AlterMesh(FVector impactpoint);
 
 private:
+	// Procedural mesh component that holds the generated terrain
 	UProceduralMeshComponent* ProcMesh;
+	// Mesh data arrays
 	TArray<FVector> Vertices;
 	TArray<int> Triangles;
 	TArray<FVector2D> UV0;
@@ -66,6 +76,7 @@ private:
 
 	int sectionID = 0;
 
+	// Functions that generate mesh data
 	void CreateVertices();
 	void CreateTriangles();
 

@@ -10,6 +10,7 @@ AProcPlane::AProcPlane()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
+	//Create the procedural mesh component
 	procMesh = CreateDefaultSubobject<UProceduralMeshComponent>("Proc Mesh");
 	
 }
@@ -22,10 +23,14 @@ void AProcPlane::BeginPlay()
 	
 }
 
+//Creation before the game loads
+//Called after the actor is created
+//Best Practice is to call the parent first, added this in for habit building
 void AProcPlane::PostActorCreated()
 {
 	Super::PostActorCreated();
 	CreateMesh();
+	//Set a UV material	
 	if (PlaneMat)
 	{
 		procMesh->SetMaterial(0, PlaneMat);
