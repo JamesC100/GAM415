@@ -7,6 +7,8 @@
 #include "ProcPlane.generated.h"
 
 class UProceduralMeshComponent;
+
+
 UCLASS()
 class CARPENTER415_API AProcPlane : public AActor
 {
@@ -29,6 +31,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//Created variables
 	UPROPERTY(EditAnywhere)
 	TArray<FVector> Vertices;
 	
@@ -37,9 +40,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 	TArray<FVector2D> UV0;
+	
+	//Setting UV
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* PlaneMat;
 
+	//Function to create mesh
 	UFUNCTION()
 	void CreateMesh();
 

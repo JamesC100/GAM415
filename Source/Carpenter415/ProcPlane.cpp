@@ -41,6 +41,7 @@ void AProcPlane::PostLoad()
 {
 	Super::PostLoad();
 	CreateMesh();
+	//Set UV material
 	if (PlaneMat)
 	{
 		procMesh->SetMaterial(0, PlaneMat);
@@ -54,6 +55,7 @@ void AProcPlane::Tick(float DeltaTime)
 
 }
 
+//Function to create mesh
 void AProcPlane::CreateMesh()
 {
 	procMesh->CreateMeshSection(0, Vertices, Triangles, TArray<FVector>(), UV0, TArray<FColor>(), TArray<FProcMeshTangent>(), true);
