@@ -23,21 +23,26 @@ class ACarpenter415Projectile : public AActor
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Movement, meta = (AllowPrivateAccess = "true"))
 	UProjectileMovementComponent* ProjectileMovement;
 
+	// Mesh used for projectile visuals
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* ballMesh;
 
+	// Base decal material for impact splat
 	UPROPERTY(EditAnywhere)
 	UMaterial* baseMat;
 
+	// Stores the randomized projectile color
 	UPROPERTY()
 	FLinearColor randColor;
 
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* projMat;
 
+	// Dynamic Material Instance used to change projectile color
 	UPROPERTY()
 	UMaterialInstanceDynamic* dmiMat;
 
+	//Color variable for Niagara System
 	UPROPERTY(EditAnywhere)
 	UNiagaraSystem* colorP;
 

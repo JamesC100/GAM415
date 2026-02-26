@@ -26,15 +26,18 @@ void ACubeDMIMod::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	// Bind overlap event
 	boxComp->OnComponentBeginOverlap.AddDynamic(this, &ACubeDMIMod::OnOverlapBegin);
 	
 	if (baseMat)
 	{
+		// Create Dynamic Material Instance
 		dmiMat = UMaterialInstanceDynamic::Create(baseMat, this);
 	}
 
 	if (cubemesh)
 	{
+		// Apply the dynamic material instance to the mesh
 		cubemesh->SetMaterial(0, dmiMat);
 	}
 }
@@ -52,6 +55,7 @@ void ACubeDMIMod::OnOverlapBegin(UPrimitiveComponent* Overlappedcomp, AActor* Ot
 
 	if (overlappedActor)
 	{
+		// Generate random color values
 		float ranNumX = UKismetMathLibrary::RandomFloatInRange(0.f, 1.f);
 		float ranNumY = UKismetMathLibrary::RandomFloatInRange(0.f, 1.f);
 		float ranNumZ = UKismetMathLibrary::RandomFloatInRange(0.f, 1.f);

@@ -32,12 +32,15 @@ public:
 	UPROPERTY(EditAnywhere)
 	UStaticMeshComponent* cubemesh;
 
+	// Base material used to create the dynamic material instance
 	UPROPERTY(EditAnywhere)
 	UMaterialInterface* baseMat;
 
+	// Dynamic Material Instance used to change parameters at runtime
 	UPROPERTY()
 	UMaterialInstanceDynamic* dmiMat;
 
+	//Color variable for Niagara System
 	UPROPERTY(EditAnywhere)
 	UNiagaraSystem* colorP;
 

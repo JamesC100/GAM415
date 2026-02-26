@@ -12,6 +12,7 @@ AProcMeshFromStatic::AProcMeshFromStatic()
 	procMesh = CreateDefaultSubobject<UProceduralMeshComponent>("Proc Mesh");
 	baseMesh = CreateDefaultSubobject<UStaticMeshComponent>("Base Mesh");
 
+	//Set the root component
 	procMesh->SetupAttachment(GetRootComponent());
 	baseMesh->SetupAttachment(procMesh);
 
@@ -38,6 +39,7 @@ void AProcMeshFromStatic::Tick(float DeltaTime)
 
 }
 
+//Function to gather mesh data from static mesh
 void AProcMeshFromStatic::GetMeshData()
 {
 	UStaticMesh* mesh = baseMesh->GetStaticMesh();
@@ -49,6 +51,7 @@ void AProcMeshFromStatic::GetMeshData()
 	}
 }
 
+//Function to create the mesh from the data gathered
 void AProcMeshFromStatic::CreateMesh()
 {
 	if (baseMesh)
@@ -59,6 +62,7 @@ void AProcMeshFromStatic::CreateMesh()
 
 
 
+// Called every frame
 void AProcMeshFromStatic::PostActorCreated()
 {
 	Super::PostActorCreated();

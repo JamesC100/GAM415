@@ -28,6 +28,7 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	//variables
 	UPROPERTY()
 	TArray<FVector> Vertices;
 

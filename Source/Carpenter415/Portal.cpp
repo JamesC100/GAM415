@@ -50,20 +50,26 @@ void APortal::Tick(float DeltaTime)
 
 }
 
+// Bind overlap to trigger teleport when the player enters the portal
 void APortal::OnOverLapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	// Only teleport the player character 
 	ACarpenter415Character* playerchar = Cast<ACarpenter415Character>(OtherActor);
 
+	// Teleport requires a linked destination
 	if (playerchar)
 	{
 		if (OtherPortal)
 		{
+			// Prevent immediate re-triggering
 			if (!playerchar->isTeleporting)
 			{
 				playerchar->isTeleporting = true;
+				// Moves player to the destination
 				FVector loc = OtherPortal->rootArrow->GetComponentLocation();
 				playerchar->SetActorLocation(loc);
 
+				// Timer resets the teleport lockout after a short delay
 				FTimerHandle TimerHandle;
 				FTimerDelegate TimerDelegate;
 				TimerDelegate.BindUFunction(this, "SetBool", playerchar);
@@ -75,6 +81,7 @@ void APortal::OnOverLapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherA
 
 void APortal::SetBool(ACarpenter415Character* playerChar)
 {
+	// Re-enables teleporting after the cooldown delay.
 	if (playerChar)
 	{
 		playerChar->isTeleporting = false;
@@ -83,11 +90,15 @@ void APortal::SetBool(ACarpenter415Character* playerChar)
 
 void APortal::UpdatePortals()
 {
+	// Relative offset between this portal and the linked portal
 	FVector Location = this->GetActorLocation() - OtherPortal->GetActorLocation();
+	// Player camera transform
 	FVector camLocation = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->GetTransformComponent()->GetComponentLocation();
 	FRotator camRotation = UGameplayStatics::GetPlayerCameraManager(GetWorld(), 0)->GetTransformComponent()->GetComponentRotation();
+	// Move the capture camera so it mirrors the player camera on the linked portal side
 	FVector CombinedLocation = camLocation + Location;
 
+	// Apply the updated transform to the scene capture
 	sceneCapture->SetWorldLocationAndRotation(CombinedLocation, camRotation);
 }
 
